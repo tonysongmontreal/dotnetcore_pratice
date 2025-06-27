@@ -359,4 +359,4 @@ project.nuget.cache
 # Specific files you want to ignore based on your commit
 appsettings.Development.json
 appsettings.json
-launchSettings.json
+# launchSettings.json - commented out to allow tracking

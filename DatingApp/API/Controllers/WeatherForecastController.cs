@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace API.Controllers;
 
@@ -21,6 +22,9 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
+
+        Log.Information("ha ha ha ha ha");
+
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -28,5 +32,6 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+        
     }
 }
