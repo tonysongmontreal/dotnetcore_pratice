@@ -22,6 +22,7 @@
               }
             ],
             "styles": [
+
               "src/styles.css"
             ]
           },
@@ -50,6 +51,11 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+              "options": {
+            "ssl": true,
+            "sslCert": "./ssl/localhost.pem",
+            "sslKey": "./ssl/localhost-key.pem"
+          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
