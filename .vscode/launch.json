@@ -1,10 +1,18 @@
 {
     "configurations": [
+   
     {
           "name": "C#: API  Debug",
-          "type": "dotnet",
-          "request": "launch",
+            "type": "dotnet",
+            "request": "launch",
           "projectPath": "${workspaceFolder}/DatingApp/API/API.csproj"
-    }
+    },
+       {
+        "name": "Launch Chrome",
+        "request": "launch",
+        "type": "chrome",
+        "url": "http://localhost:4200",
+         "webRoot": "${workspaceFolder}/DatingApp/client",
+      }
     ]
 }
