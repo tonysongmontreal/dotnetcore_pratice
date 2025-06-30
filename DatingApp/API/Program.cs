@@ -1,6 +1,9 @@
-using API.Data;
-using Microsoft.EntityFrameworkCore;
+using System.Text;
+using API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,19 +15,11 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddApplicationServices(builder.Configuration);
 
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddIdentityServices(builder.Configuration);
 
-builder.Services.AddCors();
-
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-// builder.Services.AddOpenApi();
 
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
@@ -38,7 +33,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// app.UseAuthorization();
+ app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 
