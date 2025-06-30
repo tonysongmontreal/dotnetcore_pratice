@@ -1,5 +1,6 @@
 {
     "configurations": [
+
       {
         "name": ".NET Core Attach",
         "type": "coreclr",
@@ -16,7 +17,7 @@
         "name": "Launch Chrome",
         "request": "launch",
         "type": "chrome",
-        "url": "http://localhost:4200",
+        "url": "https://localhost:4200",
          "webRoot": "${workspaceFolder}/DatingApp/client",
       }
     ]

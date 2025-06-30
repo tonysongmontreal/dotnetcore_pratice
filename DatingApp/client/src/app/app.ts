@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject, OnInit, TrackByFunction } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Nav } from "./nav/nav";
 
 // Define the User interface
 interface User {
@@ -14,7 +13,7 @@ interface User {
 @Component({
   selector: 'app-root',
   standalone:true,
-  imports: [CommonModule],
+  imports: [CommonModule, Nav],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
