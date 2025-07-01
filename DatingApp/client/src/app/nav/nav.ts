@@ -1,8 +1,9 @@
-import { Component, inject,ChangeDetectorRef } from '@angular/core';
+import { Component, inject,ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { User } from '../_models/user';
+
 
 
 
@@ -13,19 +14,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   templateUrl: './nav.html',
   styleUrl: './nav.css'
 })
-export class Nav {
+export class Nav  {
 
-  private accountService= inject(AccountService);
+   accountService= inject(AccountService);
    private cdr = inject(ChangeDetectorRef);
 
-  loggedIn=false;
-   model: any = {};
+      model: any = {};
 
      login() {
     this.accountService.login(this.model).subscribe({
       next: response => {
         console.log(response);
-        this.loggedIn=true;
+
            this.cdr.detectChanges();
       },
       error: error => console.log(error)
@@ -34,7 +34,9 @@ export class Nav {
   }
 
   logout() {
-       this.loggedIn=false;
+
+    this.accountService.logout()
+
        this.cdr.detectChanges();
   }
 
