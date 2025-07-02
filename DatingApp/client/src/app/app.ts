@@ -3,13 +3,14 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Nav } from "./nav/nav";
 import { AccountService } from './_services/account';
 import { Home } from "./home/home";
+import { RouterOutlet } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-root',
   standalone:true,
-  imports: [CommonModule, Nav, Home],
+  imports: [RouterOutlet, CommonModule, Nav],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
