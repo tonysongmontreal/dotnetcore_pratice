@@ -11,13 +11,13 @@ namespace API.Extensions
         IConfiguration config)
     {
         services.AddControllers();
-        services.AddDbContext<DataContext>(opt =>
+        services.AddDbContext<AppDbContext>(opt =>
         {
             opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
-       services.AddScoped<IUserRepository, UserRepository>();
+       services.AddScoped<IMemberRepository, MemberRepository>();
 
         return services;
     }
