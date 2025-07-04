@@ -32,7 +32,7 @@ public class Seed
         {
             Id = seedUser.Id,
             UserName = seedUser.UserName.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$w0rd")),
+            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd")),
             PasswordSalt = hmac.Key,
             DateOfBirth = DateOnly.Parse(seedUser.DateOfBirth),
             KnownAs = seedUser.KnownAs,
