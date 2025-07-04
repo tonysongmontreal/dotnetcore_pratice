@@ -14,6 +14,13 @@ export interface Member  {
   lookingFor:string
   city:string
     country: string
+      displayName: string
+  
+  dateOfBirth: string
+  imageUrl?: string
+
+  description?: string
+
 photos:Photo[]
 
 }

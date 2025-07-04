@@ -11,8 +11,8 @@ import { AccountService } from './account';
 export class MembersService {
 
    private http= inject(HttpClient);
-    private accountService= inject(AccountService);
-    baseUrl = environment.apiUrl;
+   private accountService= inject(AccountService);
+   baseUrl = environment.apiUrl;
 
 getMembers()
 {
