@@ -1,4 +1,4 @@
-import { Component, inject,ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, inject,ChangeDetectorRef, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TitleCasePipe } from '@angular/common';
+import { themes } from '../../layout/theme';
 
 
 
@@ -26,8 +27,26 @@ export class Nav  {
    private cdr = inject(ChangeDetectorRef);
    private router = inject(Router);
   private toastr = inject(ToastrService);
+  protected selectedTheme = signal<string>(localStorage.getItem('theme') || 'light');
+  protected themes = themes;
 
       model: any = {};
+        protected creds: any = {}
+
+        ngOnInit(): void {
+    document.documentElement.setAttribute('data-theme', this.selectedTheme());
+  }
+
+
+   handleSelectTheme(theme: string) {
+
+    this.selectedTheme.set(theme);
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    const elem = document.activeElement as HTMLDivElement;
+    if (elem) elem.blur();
+
+  }
 
      login() {
     this.accountService.login(this.model).subscribe({
@@ -37,7 +56,7 @@ export class Nav  {
 
            this.cdr.detectChanges();
       },
-      // error: error => console.log(error)
+
         error: error =>
           {
             this.toastr.error(error.error);

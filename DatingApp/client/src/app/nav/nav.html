@@ -22,10 +22,14 @@
                 </li>
             </ul>
 
-          @if(accountService.currentUser()) {
+
+
+          @if(accountService.currentUser(); as user) {
+
+            <img [src]="user?.imageUrl || '/user.png'" alt="user avatar" class="w-10 h-10 rounded-full mr-2">
 
              <div dropdown class="dropdown">
-                <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">Welcome
+                <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">
                    {{ accountService.currentUser()?.displayName | titlecase }}
                   </a>
                 <div *dropdownMenu class="dropdown-menu">
@@ -34,6 +38,7 @@
                     <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
             </div>
+         
 
           }
 

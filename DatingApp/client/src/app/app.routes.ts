@@ -8,19 +8,34 @@ import { authGuard } from './_guards/auth-guard';
 import { TestErrors } from './errors/test-errors/test-errors';
 import { NotFound } from './errors/not-found/not-found';
 import { ServerError } from './errors/server-error/server-error';
+import { MemberProfile } from './features/members/member-profile/member-profile';
+import { MemberPhotos } from './features/members/member-photos/member-photos';
+import { MemberMessages } from './features/members/member-messages/member-messages';
+import { memberResolver } from './features/members/member-resolver-resolver';
 
 
 export const routes: Routes = [
     {path: '', component: Home},
-    {
+  {
         path: '',
         runGuardsAndResolvers: 'always',
         canActivate: [authGuard],
         children: [
-            {path: 'members', component: MemberList},
-            {path: 'members/:id', component: MemberDetails},
-            {path: 'lists', component: Lists},
-            {path: 'messages', component: Messages},
+            { path: 'members', component: MemberList },
+            {
+                path: 'members/:id',
+                resolve: {member: memberResolver},
+                runGuardsAndResolvers: 'always',
+                component: MemberDetails,
+                children: [
+                    {path: '', redirectTo: 'profile', pathMatch: 'full'},
+                    {path: 'profile', component: MemberProfile, title: 'Profile'},
+                    {path: 'photos', component: MemberPhotos, title: 'Photos'},
+                    {path: 'messages', component: MemberMessages, title: 'Messages'},
+                ]
+            },
+            { path: 'lists', component: Lists },
+            { path: 'messages', component: Messages },
         ]
     },
     { path: 'errors', component: TestErrors },
