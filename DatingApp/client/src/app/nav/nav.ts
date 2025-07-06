@@ -7,6 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TitleCasePipe } from '@angular/common';
 import { themes } from '../../layout/theme';
+import { BusyService } from '../_services/busy-service';
 
 
 
@@ -29,6 +30,7 @@ export class Nav  {
   private toastr = inject(ToastrService);
   protected selectedTheme = signal<string>(localStorage.getItem('theme') || 'light');
   protected themes = themes;
+  protected busyService = inject(BusyService);
 
       model: any = {};
         protected creds: any = {}

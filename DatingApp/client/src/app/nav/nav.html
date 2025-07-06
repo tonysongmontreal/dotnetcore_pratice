@@ -20,11 +20,18 @@
                 <li class="nav-item">
                <a routerLink="/errors" routerLinkActive="active" class="nav-link">Errors</a>
                 </li>
+
+
             </ul>
 
+    @if (busyService.busyRequestCount() > 0) {
+            <span class="loading loading-spinner text-accent"></span>
 
+        }
 
           @if(accountService.currentUser(); as user) {
+
+
 
             <img [src]="user?.imageUrl || '/user.png'" alt="user avatar" class="w-10 h-10 rounded-full mr-2">
 
@@ -33,12 +40,12 @@
                    {{ accountService.currentUser()?.displayName | titlecase }}
                   </a>
                 <div *dropdownMenu class="dropdown-menu">
-                    <a class="dropdown-item">Edit profile</a>
+                    <a class="dropdown-item" routerLink="/members/{{user.id}}">Edit profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
             </div>
-         
+
 
           }
 
@@ -63,3 +70,4 @@
         </div>
 
 </nav>
+

@@ -8,7 +8,7 @@ import { MemberCard } from "../../features/members/member-card/member-card";
 
 @Component({
   selector: 'app-member-list',
-  imports: [AsyncPipe, JsonPipe, MemberCard],
+  imports: [AsyncPipe,  MemberCard],
   templateUrl: './member-list.html',
   styleUrl: './member-list.css'
 })

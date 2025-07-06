@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Nav } from "./nav/nav";
 import { AccountService } from './_services/account';
-import { Home } from "./home/home";
 import { RouterOutlet } from '@angular/router';
 
 
