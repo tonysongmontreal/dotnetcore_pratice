@@ -9,19 +9,19 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
 const busyService = inject(BusyService);
 
-  if (req.method === 'GET') {
-    const cachedResponse = cache.get(req.url);
-    if (cachedResponse) {
-      return of(cachedResponse);
-    }
-  }
+  // if (req.method === 'GET' && !req.url.includes('/photos') ) {
+  //   const cachedResponse = cache.get(req.url);
+  //   if (cachedResponse) {
+  //     return of(cachedResponse);
+  //   }
+  // }
 
   busyService.busy();
 
   return next(req).pipe(
-    delay(500),
+    delay(5),
     tap(response => {
-      cache.set(req.url, response)
+     // cache.set(req.url, response)
     }),
     finalize(() => {
       busyService.idle()

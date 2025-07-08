@@ -16,7 +16,7 @@ export class MembersService {
    private http= inject(HttpClient);
    private accountService= inject(AccountService);
    baseUrl = environment.apiUrl;
-  editMode = signal(false);
+   editMode = signal(false);
     member = signal<Member | null>(null);
 
 getMembers()
@@ -34,6 +34,7 @@ getMembers()
 
 
  getMemberPhotos(id: string) {
+
     return this.http.get<Photo[]>(this.baseUrl + 'members/' + id + '/photos');
   }
 
@@ -41,10 +42,27 @@ getMembers()
     return this.http.put(this.baseUrl + 'members', member);
   }
 
+   uploadPhoto(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<Photo>(this.baseUrl + 'members/add-photo', formData);
+  }
 
+   setMainPhoto(photo: Photo) {
+    return this.http.put(this.baseUrl + 'members/set-main-photo/' + photo.id, {});
+  }
 
-
-
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'members/delete-photo/' + photoId);
+  }
 
 
 }
+
+
+
+
+
+
+
+

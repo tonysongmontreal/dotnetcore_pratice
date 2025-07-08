@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using API.Data;
 using API.Extensions;
+using API.Helpers;
 using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ builder.Host.UseSerilog();
 builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddIdentityServices(builder.Configuration);
+
 
 
 var app = builder.Build();
@@ -61,7 +63,7 @@ catch (Exception ex)
 
 try
 {
-    Log.Information("Starting web application");
+    Log.Information("Starting web application8899");
     app.Run();
 }
 catch (Exception ex)
