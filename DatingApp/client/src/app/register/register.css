@@ -1,0 +1,247 @@
+.input-error {
+  border-color: #f87171; /* 相当于 Tailwind 的 red-400 */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.5); /* 可选的红色阴影 */
+}
+
+/* Base step container */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Individual step item */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Step circle/number */
+.step::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* Step connecting line */
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
+  height: 2px;
+  background: #e5e7eb;
+  z-index: 0;
+  transition: background-color 0.3s ease;
+}
+
+/* Step label */
+.step-label {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Step description */
+.step-description {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9ca3af;
+  max-width: 120px;
+}
+
+/* Primary/Active step state */
+.step-primary,
+.step.active {
+  color: #3b82f6;
+}
+
+.step-primary::before,
+.step.active::before {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  transform: scale(1.1);
+}
+
+.step-primary .step-label,
+.step.active .step-label {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* Completed step state */
+.step.completed::before {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+  content: '✓';
+  font-size: 16px;
+}
+
+.step.completed .step-label {
+  color: #10b981;
+}
+
+/* Completed step connecting line */
+.step.completed::after {
+  background: #10b981;
+}
+
+/* Disabled/Future step state */
+.step.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.step.disabled::before {
+  background: #f3f4f6;
+  color: #d1d5db;
+  border-color: #e5e7eb;
+}
+
+.step.disabled .step-label {
+  color: #d1d5db;
+}
+
+/* Clickable steps */
+.step.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.step.clickable:hover::before {
+  transform: scale(1.05);
+}
+
+.step.clickable:hover .step-label {
+  color: #3b82f6;
+}
+
+/* Vertical layout variant */
+.steps.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 300px;
+}
+
+.steps.vertical .step {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.steps.vertical .step::before {
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.steps.vertical .step::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: calc(50% + 20px);
+  bottom: calc(-50% + 4px);
+  width: 2px;
+  height: 24px;
+  background: #e5e7eb;
+}
+
+.steps.vertical .step:last-child::after {
+  display: none;
+}
+
+.steps.vertical .step.completed::after {
+  background: #10b981;
+}
+
+/* Small variant */
+.steps.small .step::before {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.steps.small .step-label {
+  font-size: 12px;
+}
+
+.steps.small .step-description {
+  font-size: 10px;
+}
+
+/* Large variant */
+.steps.large .step::before {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.steps.large .step-label {
+  font-size: 16px;
+}
+
+.steps.large .step-description {
+  font-size: 14px;
+}
+
+/* Counter reset for step numbers */
+.steps {
+  counter-reset: step-counter;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .steps {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .step::before {
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .step::after {
+    display: none;
+  }
+
+  .step-label {
+    margin-top: 0;
+  }
+}

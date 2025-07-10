@@ -1,47 +1,117 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">Sign up</h2>
-    <hr>
+<div class="card bg-white w-full max-w-2xl mx-auto flex flex-col
+ p-6 rounded-lg shadow-lg" style="border: 3px solid red;">
+  <div class="card-title justify-center text-3xl text-primary mb-4">Sign up</div>
 
-       <div class="mb-3 form-floating">
-        <input
-            type="text"
-            class="form-control"
-            name="displayName"
-            [(ngModel)]="model.DisplayName"
-            placeholder="DisplayName"
-        >
-        <label>DisplayName</label>
-    </div>
 
-    <div class="mb-3 form-floating">
-        <input
-            type="text"
-            class="form-control"
-            name="email"
-            [(ngModel)]="model.Email"
-            placeholder="Email"
-        >
-        <label>Email</label>
-    </div>
+  <div class="card-body w-full">
 
-    <div class="mb-3 form-floating">
-        <input
-            type="password"
-            class="form-control"
-            name="password"
-            [(ngModel)]="model.password"
-            placeholder="Password"
-        >
-        <label>Password</label>
-    </div>
+       <ul class="steps">
+            <li class="step step-primary">Credentials</li>
+            <li class="step" [class.step-primary]="currentStep() === 2">Profile</li>
+        </ul>
+
+
+  @if (currentStep() === 1) {
+    <form [formGroup]="credentialsForm" class="flex flex-col gap-4 w-full items-center" (ngSubmit)="register()" >
+<div class="w-3/4 ">
+           <app-text-input label="Email" formControlName="email"></app-text-input>
+</div>
+<div class="w-3/4">
+      <app-text-input label="Display name" formControlName="displayName"></app-text-input>
+</div>
+<div class="w-3/4">
+           <app-text-input label="Password" formControlName="password" type="password" />
+           </div>
+           <div class="w-3/4">
+            <app-text-input label="Confirm Password" formControlName="confirmpassword"
+                type="password" />
+                </div>
 
 
 
 
 
 
-    <div class="form-group text-center">
-        <button class="btn btn-success me-2" type="submit">Register</button>
-        <button class="btn btn-default me-2" (click)="cancel()" type="button">Cancel</button>
-    </div>
-</form>
+
+
+ <div class="flex justify-end items-center gap-2 pt-4">
+  <button
+    type="button"
+    (click)="cancel()"
+    class="btn border border-gray-300 text-gray-700 hover:bg-gray-100"
+  >
+    Cancel
+  </button>
+  <button
+  [disabled]="!credentialsForm.valid"
+  (click)="nextStep()"
+    type="button"
+    class="btn btn-primary"
+  >
+  Next
+  </button>
+</div>
+    </form>
+  }
+
+      @if (currentStep() === 2) {
+            <form [formGroup]="profileForm" class="flex flex-col w-full gap-4 steps ">
+
+                <div class="flex items-center gap-4 w-3/4">
+                    <div class="font-semibold">Gender: </div>
+                    <label class="flex gap-3 items-center">
+                        <span>Male</span>
+                        <input type="radio" formControlName="gender" value="male"
+                            class="radio radio-primary">
+                    </label>
+                    <label class="flex gap-3 items-center">
+                        <span>Female</span>
+                        <input type="radio" formControlName="gender" value="female"
+                            class="radio radio-primary">
+                    </label>
+                </div>
+
+
+<div class="w-3/4">
+                <app-text-input
+                    [maxDate]="getMaxDate()"
+                    type="date" label="Date of Birth" formControlName="dateOfBirth" />
+                    </div>
+                    <div class="w-3/4">
+                <app-text-input label="City" formControlName="city" />
+                </div>
+                 <div class="w-3/4">
+                <app-text-input label="Country" formControlName="country" />
+</div>
+    <div class="w-3/4">
+                    <app-textarea
+    [control]="$any(profileForm.get('description'))"
+    labelText="Description"
+    [rowCount]="4"
+    [maxLengthValue]="500">
+  </app-textarea>
+  </div>
+
+                <div class="flex items-center justify-end gap-3">
+                <button (click)="prevStep()" type="button" class="btn">Back</button>
+                <button
+                    [disabled]="!profileForm.valid"
+                    (click)="register()"
+                    class="btn btn-primary" type="button">Register</button>
+            </div>
+            </form>
+        }
+
+
+  </div>
+
+    @if (validationErrors().length > 0) {
+        <div class="mt-5 flex bg-gray-200 rounded-2xl w-1/2 p-3 mx-auto">
+            <ul class="flex flex-col text-error space-y-1">
+                @for (error of validationErrors(); track $index) {
+                    <li>{{error}}</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

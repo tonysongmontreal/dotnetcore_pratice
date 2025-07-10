@@ -1,0 +1,12 @@
+.input-error {
+  border-color: #f87171; /* 相当于 Tailwind 的 red-400 */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.5); /* 可选的红色阴影 */
+}
+
+
+.input-success {
+  border-color: #22c55e; /* 这是 Tailwind 的 green-500 */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3); /* 可选：绿色外圈高亮 */
+}
