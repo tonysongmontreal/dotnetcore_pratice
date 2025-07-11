@@ -1,0 +1,71 @@
+/* fileter-modal.css */
+
+/* 确保 dialog 元素的基本样式 */
+dialog.modal {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  background: transparent;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+/* 当 dialog 打开时的样式 */
+dialog.modal[open] {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* 模态框背景 */
+dialog.modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* 模态框内容区域 */
+.modal-box {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  position: relative;
+  max-width: 32rem;
+  width: 100%;
+}
+
+/* 确保表单元素正确显示 */
+.modal-box input,
+.modal-box select,
+.modal-box button {
+  margin: 0.25rem 0;
+}
+
+/* 按钮样式 */
+.modal-action {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* 备用显示方案的样式 */
+dialog.modal[data-manual-open] {
+  display: flex !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* 隐藏状态 */
+dialog.modal:not([open]):not([data-manual-open]) {
+  display: none !important;
+}

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using API.DTOs;
+using API.Helpers;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
@@ -12,10 +13,19 @@ namespace API.Controllers
     public class MembersController(IMemberRepository memberRepository,
     IPhotoService photoService) : BaseApiController
     {
+        // [HttpGet]
+        // public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers()
+        // {
+        //     return Ok(await memberRepository.GetMembersAsync());
+        // }
+
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers()
+        public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers(
+                [FromQuery] MemberParams memberParams)
         {
-            return Ok(await memberRepository.GetMembersAsync());
+            memberParams.CurrentMemberId = User.GetMemberId();
+
+            return Ok(await memberRepository.GetMembersAsync(memberParams));
         }
 
         [HttpGet("{id}")] // locahost:5001/api/members/bob-id

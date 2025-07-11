@@ -15,7 +15,7 @@ export interface Member  {
   city:string
     country: string
       displayName: string
-  
+
   dateOfBirth: string
   imageUrl?: string
 
@@ -23,5 +23,14 @@ export interface Member  {
 
 photos:Photo[]
 
+}
+
+export class MemberParams {
+  gender?: string;
+  minAge = 18;
+  maxAge = 100;
+  pageNumber = 1;
+  pageSize = 4;
+  orderBy = 'lastActive';
 }
 
