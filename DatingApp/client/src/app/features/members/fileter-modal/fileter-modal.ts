@@ -25,8 +25,6 @@ export class FilterModal  {
   }
 
 
-
-
   open() {
     this.modalRef.nativeElement.showModal();
   }
@@ -46,6 +44,16 @@ export class FilterModal  {
 
     this.submitData.emit(this.memberParams());
     this.close();
+  }
+
+    onMinAgeChange() {
+    if (this.memberParams().minAge < 18) this.memberParams().minAge = 18;
+  }
+
+  onMaxAgeChange() {
+    if (this.memberParams().maxAge < this.memberParams().minAge) {
+      this.memberParams().maxAge = this.memberParams().minAge
+    }
   }
 
 

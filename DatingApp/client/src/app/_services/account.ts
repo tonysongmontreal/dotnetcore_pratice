@@ -13,7 +13,7 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
-  
+
 
     register(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
@@ -40,9 +40,9 @@ export class AccountService {
 
     logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('filters');
     this.currentUser.set(null);
   }
-
 
 
 }

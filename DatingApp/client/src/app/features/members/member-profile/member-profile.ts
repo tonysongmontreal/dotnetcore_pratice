@@ -7,10 +7,11 @@ import { MembersService } from '../../../_services/MembersService';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AccountService } from '../../../_services/account';
 import { ToastrService } from 'ngx-toastr';
+import { TimeAgoPipe } from "../../../../core/pipes/time-ago-pipe";
 
 @Component({
   selector: 'app-member-profile',
-  imports: [ CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, TimeAgoPipe],
   templateUrl: './member-profile.html',
   styleUrl: './member-profile.css'
 })

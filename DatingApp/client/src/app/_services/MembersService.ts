@@ -38,10 +38,6 @@ export class MembersService {
     )
   }
 
-// getMembers()
-// {
-//   return this.http.get<Member[]>(this.baseUrl+'members');
-// }
 
  getMember(id: string) {
     return this.http.get<Member>(this.baseUrl + 'members/' + id).pipe(

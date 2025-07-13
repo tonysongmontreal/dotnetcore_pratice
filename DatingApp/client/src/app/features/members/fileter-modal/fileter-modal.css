@@ -1,1 +1,26 @@
+:host ::ng-deep .modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: none !important;
+  z-index: 999999 !important;
+}
 
+:host ::ng-deep .modal[open] {
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* 添加这个确保模态框内容可见 */
+:host ::ng-deep .modal-box {
+  background-color: white !important;
+  border-radius: 8px !important;
+  padding: 24px !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  position: relative !important;
+  z-index: 1000000 !important; /* 确保在最上层 */
+}
