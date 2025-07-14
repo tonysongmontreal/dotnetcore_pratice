@@ -20,6 +20,7 @@ namespace API.Extensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<LogUserActivity>();
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<ILikesRepository, LikesRepository>();
         services.AddScoped<IPhotoService, PhotoService>();
 
             var ttt = config.GetSection("CloudinarySettings");

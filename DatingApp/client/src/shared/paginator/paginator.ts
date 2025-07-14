@@ -9,7 +9,7 @@ import { Component, computed, input, model, output } from '@angular/core';
 })
 export class Paginator {
 
-    pageNumber = model(1);
+  pageNumber = model(1);
   pageSize = model(10);
   totalCount = input(0);
   totalPages = input(0);
@@ -21,24 +21,18 @@ export class Paginator {
 
    pageChange = output<{pageNumber: number, pageSize: number}>();
 
-     lastItemIndex = computed(() => {
+    lastItemIndex = computed(() => {
     return Math.min(this.pageNumber() * this.pageSize(), this.totalCount())
   })
 
-    // onPageChange(newPage?: number, pageSize?: number) {
-    // if (newPage) this.pageNumber.set(newPage);
-    // if (pageSize) {
-
-    //   this.pageSize.set(pageSize);
-    // }
-
     onPageChange(newPage?: number, pageSize?: EventTarget | null) {
+
+
     if (newPage) this.pageNumber.set(newPage);
     if (pageSize) {
       const size = Number((pageSize as HTMLSelectElement).value)
       this.pageSize.set(size);
     }
-
     this.pageChange.emit({
       pageNumber: this.pageNumber(),
       pageSize: this.pageSize()

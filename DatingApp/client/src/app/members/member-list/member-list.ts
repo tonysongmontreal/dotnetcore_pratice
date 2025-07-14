@@ -7,6 +7,7 @@ import { MemberCard } from "../../features/members/member-card/member-card";
 import { PaginatedResult } from '../../_models/pagination';
 import { Paginator } from "../../../shared/paginator/paginator";
 import { FilterModal } from '../../features/members/fileter-modal/fileter-modal';
+import { LikesService } from '../../_services/likes-service';
 
 
 
@@ -22,6 +23,7 @@ export class MemberList {
     @ViewChild('filterModal') modal!: FilterModal;
 
   private memberService = inject(MembersService);
+  private likesService = inject(LikesService);
 
   protected paginatedMembers = signal<PaginatedResult<Member> | null>(null);
   protected memberParams = new MemberParams();
@@ -43,12 +45,13 @@ export class MemberList {
 
 
     loadMembers() {
-    
+
     this.memberService.getMembers(this.memberParams).subscribe({
       next: result => {
         this.paginatedMembers.set(result)
       }
-    })
+    });
+     this.likesService.getLikeIds();
 
   }
 
