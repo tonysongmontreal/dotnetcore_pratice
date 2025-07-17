@@ -25,7 +25,9 @@ export class Paginator {
     return Math.min(this.pageNumber() * this.pageSize(), this.totalCount())
   })
 
-    onPageChange(newPage?: number, pageSize?: EventTarget | null) {
+    onPageChange(newPage?: number, pageSize?: EventTarget | null)
+
+    {
 
 
     if (newPage) this.pageNumber.set(newPage);
