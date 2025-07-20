@@ -1,5 +1,9 @@
 using System.Text;
+using API.Data;
+
+using API.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions {
@@ -23,6 +27,21 @@ namespace API.Extensions {
           }
 
         );
+
+        services.AddIdentityCore<AppUser>(opt =>
+                                            {
+                                                opt.Password.RequireNonAlphanumeric = false;
+                                                opt.User.RequireUniqueEmail = true;
+                                            })
+                                            .AddRoles<IdentityRole>()
+                                            .AddEntityFrameworkStores<AppDbContext>();
+
+        services.AddAuthorizationBuilder()
+                              .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
+                              .AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
+
+
+
 
       return services;
     }

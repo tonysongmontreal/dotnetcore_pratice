@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TitleCasePipe } from '@angular/common';
 import { themes } from '../../layout/theme';
 import { BusyService } from '../_services/busy-service';
+import { HasRole } from '../../shared/has-role';
 
 
 
@@ -18,7 +19,7 @@ import { BusyService } from '../_services/busy-service';
   imports: [FormsModule,
     BsDropdownModule,
     RouterLink,
-  TitleCasePipe],
+  TitleCasePipe,HasRole],
   templateUrl: './nav.html',
   styleUrl: './nav.css'
 })
