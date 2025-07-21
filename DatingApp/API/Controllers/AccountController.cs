@@ -106,7 +106,45 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
 
         return await user.ToDto(tokenService);
     }
-    
+
+[HttpPost("logout")]
+public async Task<ActionResult> Logout()
+{
+    try
+    {
+        // 获取当前用户的 refresh token
+        var refreshToken = Request.Cookies["refreshToken"];
+        
+        if (!string.IsNullOrEmpty(refreshToken))
+        {
+            // 可选：在数据库中清除或标记 refresh token 为无效
+            var user = await userManager.Users
+                .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+            
+            if (user != null)
+            {
+                user.RefreshToken = null;
+                user.RefreshTokenExpiry = DateTime.UtcNow; // 设为过期
+                await userManager.UpdateAsync(user);
+            }
+        }
+
+        // 清除 refresh token cookie
+        Response.Cookies.Delete("refreshToken", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Path = "/" // 确保路径匹配
+        });
+
+        return Ok(new { message = "Logged out successfully" });
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(new { message = "Logout failed" });
+    }
+}
     
 
 }

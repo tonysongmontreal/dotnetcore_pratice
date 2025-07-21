@@ -67,11 +67,25 @@ export class Nav  {
     });
   }
 
-  logout() {
+  // logout() {
 
-    this.accountService.logout();
-      this.router.navigateByUrl('/');
-       this.cdr.detectChanges();
+  //   this.accountService.logout();
+  //     this.router.navigateByUrl('/');
+  //      this.cdr.detectChanges();
+  // }
+
+  logout() {
+    this.accountService.logout().subscribe({
+      next: () => {
+        console.log('Logout successful');
+        this.router.navigate(['/']); // 重定向到首页或登录页
+      },
+      error: (error) => {
+        console.error('Logout failed:', error);
+        // 即使出错也重定向，因为前端状态已清理
+        this.router.navigate(['/']);
+      }
+    });
   }
 
 }

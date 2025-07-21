@@ -18,6 +18,20 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
+    async initializeUser() {
+    try {
+      // 尝试使用 cookie 中的 refresh token 获取用户信息
+      const user = await this.refreshToken().toPromise();
+      if (user) {
+        this.setCurrentUser(user);
+      }
+    } catch (error) {
+      // 如果失败，用户未登录
+      console.log('No valid session found');
+    }
+  }
+
+
 
 
     register(model: any) {
@@ -48,24 +62,42 @@ export class AccountService {
       map(user => {
         if (user) {
        this.setCurrentUser(user);
-    //  this.startTokenRefreshInterval();
+      this.startTokenRefreshInterval();
         }
+
+           return user;
       })
     )
   }
 
     logout() {
-
-    localStorage.removeItem('filters');
-    this.likesService.clearLikeIds();
+    return this.http.post(this.baseUrl + 'account/logout', {}, {
+      withCredentials: true // 清除服务器端 cookie
+    }).pipe(
+      map(() => {
+        localStorage.removeItem('filters');
+         this.likesService.clearLikeIds();
     this.currentUser.set(null);
     this.presenceService.stopHubConnection();
+      })
+    );
   }
+
+
+  //   logout() {
+
+  //   localStorage.removeItem('filters');
+  //   this.likesService.clearLikeIds();
+  //   this.currentUser.set(null);
+  //   this.presenceService.stopHubConnection();
+  // }
 
     refreshToken() {
     return this.http.post<User>(this.baseUrl + 'account/refresh-token', {},
       {withCredentials: true})
   }
+
+    private refreshIntervalId?: number;
 
     startTokenRefreshInterval() {
     setInterval(() => {
@@ -75,10 +107,17 @@ export class AccountService {
             this.setCurrentUser(user)
           },
           error: () => {
-            this.logout()
+             this.logout().subscribe(); // 自动登出
           }
         })
     }, 5 * 60 * 1000)
+  }
+
+    stopTokenRefreshInterval() {
+    if (this.refreshIntervalId) {
+      clearInterval(this.refreshIntervalId);
+      this.refreshIntervalId = undefined;
+    }
   }
 
 

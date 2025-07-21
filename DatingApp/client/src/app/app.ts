@@ -20,19 +20,13 @@ export class App implements OnInit {
   cdr = inject(ChangeDetectorRef);
   private accountService = inject(AccountService);
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
-    this.setCurrentUser();
+ await this.accountService.initializeUser();
 
   }
 
-    setCurrentUser() {
-    const userString = localStorage.getItem('user');
-    if (!userString) return;
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
-  }
-
+ 
 
 
 
