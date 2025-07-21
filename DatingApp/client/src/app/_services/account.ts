@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable,signal  } from '@angular/core';
 import { User } from '../_models/user';
-import { map } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LikesService } from './likes-service';
 import { PresenceService } from './presence-service';
@@ -18,19 +18,32 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
-    async initializeUser() {
-    try {
-      // 尝试使用 cookie 中的 refresh token 获取用户信息
-      const user = await this.refreshToken().toPromise();
-      if (user) {
-        this.setCurrentUser(user);
-      }
-    } catch (error) {
-      // 如果失败，用户未登录
-      console.log('No valid session found');
+    private isInitialized = signal<boolean>(false); // 添加初始化状态
+
+  // 改为同步方法，返回 Observable
+  initializeUser(): Observable<User | null> {
+    if (this.isInitialized()) {
+      return of(this.currentUser());
     }
+
+    return this.refreshToken().pipe(
+      tap(user => {
+        if (user) {
+          this.setCurrentUser(user);
+        }
+        this.isInitialized.set(true);
+      }),
+      catchError(error => {
+        console.log('No valid session found');
+        this.isInitialized.set(true);
+        return of(null);
+      })
+    );
   }
 
+    isUserInitialized(): boolean {
+    return this.isInitialized();
+  }
 
 
 
