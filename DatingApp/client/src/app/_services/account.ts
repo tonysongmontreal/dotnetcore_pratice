@@ -97,13 +97,6 @@ export class AccountService {
   }
 
 
-  //   logout() {
-
-  //   localStorage.removeItem('filters');
-  //   this.likesService.clearLikeIds();
-  //   this.currentUser.set(null);
-  //   this.presenceService.stopHubConnection();
-  // }
 
     refreshToken() {
     return this.http.post<User>(this.baseUrl + 'account/refresh-token', {},

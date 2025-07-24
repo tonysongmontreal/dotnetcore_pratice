@@ -20,6 +20,7 @@ export interface Member  {
   imageUrl?: string
 
   description?: string
+  email?:string
 
 photos:Photo[]
 

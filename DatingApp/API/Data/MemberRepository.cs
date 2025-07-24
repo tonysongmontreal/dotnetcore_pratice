@@ -16,7 +16,7 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
     public async Task<PaginatedResult<Member>>
     GetMembersAsync(MemberParams memberParams)
     {
-        var query = context.Members.AsQueryable();
+        var query = context.Members.Include(m => m.User).AsQueryable();
 
         query = query.Where(x => x.Id != memberParams.CurrentMemberId);
 

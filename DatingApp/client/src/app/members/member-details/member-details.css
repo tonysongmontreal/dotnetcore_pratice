@@ -1,0 +1,88 @@
+/* DaisyUI 状态指示器基础类 */
+.status {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* 默认状态尺寸 */
+.status {
+  width: 12px;
+  height: 12px;
+}
+
+/* 大尺寸状态指示器 */
+.status-xl {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+}
+
+/* 中等尺寸状态指示器 */
+.status-lg {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+/* 小尺寸状态指示器 */
+.status-sm {
+  width: 10px;
+  height: 10px;
+  border-width: 1px;
+}
+
+/* 成功状态（在线）- 绿色 */
+.status-success {
+  background-color: #00d084;
+}
+
+/* 错误状态（离线）- 红色 */
+.status-error {
+  background-color: #ff5861;
+}
+
+/* 警告状态（忙碌）- 黄色 */
+.status-warning {
+  background-color: #ffbe00;
+}
+
+/* 信息状态（离开）- 蓝色 */
+.status-info {
+  background-color: #00b4d6;
+}
+
+/* 中性状态（隐身）- 灰色 */
+.status-neutral {
+  background-color: #a6adba;
+}
+
+/* 添加一些动画效果（可选） */
+.status-success {
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 如果你想要更明显的在线指示器效果 */
+.status-online {
+  background-color: #00d084;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #00d084;
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+  .status-xl {
+    width: 16px;
+    height: 16px;
+  }
+}

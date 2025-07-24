@@ -5,6 +5,7 @@ import { filter } from 'rxjs';
 import { Member } from '../../_models/member';
 import { AccountService } from '../../_services/account';
 import { MembersService } from '../../_services/MembersService';
+import { PresenceService } from '../../_services/presence-service';
 
 @Component({
   selector: 'app-member-details',
@@ -21,6 +22,7 @@ export class MemberDetails implements OnInit {
      protected title=signal<string|undefined>('Profile');
       private accountService = inject(AccountService);
         protected memberService = inject(MembersService);
+          protected presenceService = inject(PresenceService);
 
       protected isCurrentUser = computed(() => {
     return this.accountService.currentUser()?.id === this.route.snapshot.paramMap.get('id');

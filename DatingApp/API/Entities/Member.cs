@@ -16,6 +16,10 @@ public class Member
     public required string City { get; set; }
     public required string Country { get; set; }
 
+    [NotMapped] // This tells EF not to map this to a database column
+    public string? Email => User?.Email;
+  
+
     // Navigation property
     [JsonIgnore]
     public List<Photo> Photos { get; set; } = [];

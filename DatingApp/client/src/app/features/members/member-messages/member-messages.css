@@ -1,0 +1,51 @@
+.avatar-online {
+  position: relative;
+}
+
+.avatar-online::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #22c55e; /* Green color for online status */
+  border: 2px solid #ffffff; /* White border for contrast */
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Alternative version with pulsing animation */
+.avatar-online.pulse::after {
+  animation: pulse-online 2s infinite;
+}
+
+@keyframes pulse-online {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive sizing for different avatar sizes */
+.avatar-online.avatar-sm::after {
+  width: 8px;
+  height: 8px;
+  bottom: 1px;
+  right: 1px;
+}
+
+.avatar-online.avatar-lg::after {
+  width: 16px;
+  height: 16px;
+  bottom: 3px;
+  right: 3px;
+}

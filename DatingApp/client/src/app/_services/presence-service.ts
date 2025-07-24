@@ -27,11 +27,15 @@ export class PresenceService {
       .catch(error => console.log(error));
 
     this.hubConnection.on('UserOnline', userId => {
-      this.onlineUsers.update(users => [...users, userId])
+      this.onlineUsers.update(users => [...users, userId]);
+        this.toast.success(userId+' has connected!');
+             
+
     })
 
     this.hubConnection.on('UserOffline', userId => {
-      this.onlineUsers.update(users => users.filter(x => x !== userId))
+      this.onlineUsers.update(users => users.filter(x => x !== userId));
+       this.toast.success(userId+' Offline!');
     });
 
     this.hubConnection.on('GetOnlineUsers', userIds => {
@@ -48,10 +52,6 @@ export class PresenceService {
 
 });
 
-    // this.hubConnection.on('NewMessageReceived', (message: Message) => {
-    //   this.toast.info(message.senderDisplayName + ' has sent you a new message',
-    //     10000, message.senderImageUrl, `/members/${message.senderId}/messages`);
-    // })
 
 
   }
