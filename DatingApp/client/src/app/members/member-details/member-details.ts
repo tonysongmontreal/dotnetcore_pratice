@@ -6,6 +6,8 @@ import { Member } from '../../_models/member';
 import { AccountService } from '../../_services/account';
 import { MembersService } from '../../_services/MembersService';
 import { PresenceService } from '../../_services/presence-service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LikesService } from '../../_services/likes-service';
 
 @Component({
   selector: 'app-member-details',
@@ -20,15 +22,25 @@ export class MemberDetails implements OnInit {
       private router = inject(Router);
      protected member = signal<Member | undefined>(undefined);
      protected title=signal<string|undefined>('Profile');
+     private routeId=signal<string|null>(null);
       private accountService = inject(AccountService);
         protected memberService = inject(MembersService);
           protected presenceService = inject(PresenceService);
+           private likeService = inject(LikesService);
+
+             protected hasLiked = computed(() => this.likeService.likeIds().includes(this.routeId()!));
 
       protected isCurrentUser = computed(() => {
-    return this.accountService.currentUser()?.id === this.route.snapshot.paramMap.get('id');
+    return this.accountService.currentUser()?.id === this.routeId();
   })
 
   constructor() {
+
+    this.route.paramMap.pipe(takeUntilDestroyed())
+    .subscribe(parame=>{
+
+      this.routeId.set(parame.get('id'));
+    })
 
 
      effect(() => {
@@ -37,21 +49,9 @@ export class MemberDetails implements OnInit {
   });
 
 
-
   }
 
        ngOnInit(): void {
-
-      // this.member.set(this.memberService.member()!)
-
-
-
-        // this.route.data.subscribe(
-        //   {
-        //     next:data=>this.member.set(data['member'])
-        //   }
-        // )
-
 
         this.title.set(this.route.firstChild?.snapshot?.title);
 
@@ -62,7 +62,7 @@ export class MemberDetails implements OnInit {
         this.title.set(this.route.firstChild?.snapshot?.title)
       }
     })
-  }
+       }
 
 
 }
