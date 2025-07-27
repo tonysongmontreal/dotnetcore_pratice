@@ -15,7 +15,10 @@ namespace API.Extensions
         services.AddControllers();
         services.AddDbContext<AppDbContext>(opt =>
         {
-            opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+               var connectionString = config.GetConnectionString("DefaultConnection");
+               Console.WriteLine($"使用的连接字符串: {connectionString}");
+            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+         
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();

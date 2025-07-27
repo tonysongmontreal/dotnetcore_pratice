@@ -10,7 +10,7 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-member-card',
   standalone: true,
-  imports: [RouterLink, AgePipe,JsonPipe],
+  imports: [RouterLink, AgePipe],
   templateUrl: './member-card.html',
   styleUrls: ['./member-card.css']
 })
